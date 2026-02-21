@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+.title {
+  display: flex;
+  margin: 0 20px;
+  user-select: none;
+  text-wrap: balance;
+}
+
+.center {
+  align-self: center;
+  text-align: center;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.titleLarge {
+  font-size: 60px;
+
+  @media (max-width:959px) {
+    display: relative;
+    font-size: min(6.5vw, 60px);
+  }
+}
+
+.titleMedium {
+  font-size: 45px;
+
+  @media (max-width:959px) {
+    display: relative;
+    font-size: min(5.5vw, 45px);
+  }
+}
+
+.titleSmall {
+  font-size: 20px;
+
+  @media (max-width:959px) {
+    display: relative;
+    font-size: 15px;
+  }
+}

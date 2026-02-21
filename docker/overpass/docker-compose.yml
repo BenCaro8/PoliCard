@@ -1,0 +1,19 @@
+services:
+  overpass:
+    image: overpass
+    container_name: overpass
+    ports:
+      - 12345:80
+    volumes:
+      # use a docker managed volume
+      - /var/lib/docker/volumes/overpass-data/_data:/db
+    environment:
+      - OVERPASS_META=no
+      - OVERPASS_MODE=init
+      - OVERPASS_PLANET_URL=https://download.geofabrik.de/north-america/us-latest.osm.bz2
+      - OVERPASS_DIFF_URL=http://download.openstreetmap.fr/replication/north-america/us/minute/
+      - OVERPASS_UPDATE_SLEEP=3600
+      - OVERPASS_USE_AREAS=false
+    healthcheck:
+      test: ["CMD-SHELL", "curl --noproxy '*' -qf 'http://localhost/api/interpreter?data=\\[out:json\\];node(1);out;' | jq '.generator' |grep -q Overpass || exit 1"]
+      start_period: 48h

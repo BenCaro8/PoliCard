@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commercialwebsite-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commercialwebsite
+  template:
+    metadata:
+      labels:
+        app: commercialwebsite
+    spec:
+      containers:
+      - name: graphql
+        image: 339712859667.dkr.ecr.us-east-1.amazonaws.com/graphql:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 4000
+        resources:
+            limits:
+              memory: "256Mi"  # Maximum memory allowed
+              cpu: "200m"       # Maximum CPU allowed (200 milliCPU)
+            requests:
+              memory: "128Mi"  # Initial memory request
+              cpu: "100m"       # Initial CPU request
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: commercialwebsite-service
+spec:
+  type: NodePort
+  selector:
+    app: commercialwebsite
+  ports:
+  - port: 4000          # Service port
+    targetPort: 4000    # Container port
+    nodePort: 30000     # External port (30000-32767 range)
+    protocol: TCP

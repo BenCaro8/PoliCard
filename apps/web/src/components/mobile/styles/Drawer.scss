@@ -1,0 +1,36 @@
+.drawerWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 1000;
+  transition: visibility 0.5s;
+}
+
+.drawerOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.drawerContainer {
+  width: 70%;
+  height: 100dvh;
+  background-color: var(--primary-bg-color);
+  position: fixed;
+  left: -70vw;
+  transition: left 0.2s cubic-bezier(0.82, 0.085, 0.395, 0.895);
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.activeLeft {
+  left: 0;
+}
+
+.activeBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+}

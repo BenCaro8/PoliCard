@@ -1,0 +1,89 @@
+.navContainer {
+  width: 100%;
+  display: flex;
+  top: 0;
+  position: fixed;
+  align-items: center;
+}
+
+.navBoxShadow {
+  box-shadow: 0px 2px 5px var(--primary-bg-color);
+}
+
+.hamburger {
+  color: white;
+  font-size: 25px;
+}
+
+.rightCenter {
+  margin-left: auto;
+  align-content: center;
+}
+
+.drawerOption {
+  color: var(--primary-accent-color);
+  display: flex;
+  align-items: center;
+  margin: 20px 10px;
+  border: solid var(--primary-accent-color);
+  border-radius: 6px;
+  padding: 0 10px;
+  height: 6vh;
+
+  * {
+    margin-top: 3px;
+    margin-left: 10px;
+  }
+
+  &:active {
+    color: var(--primary-bg-color);
+    background-color: var(--primary-accent-color);
+  }
+}
+
+.settingsWrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  transition: 0.4s;
+  background-color: var(--primary-bg-color);
+  z-index: 10;
+}
+
+.closed {
+  height: 64px;
+  bottom: 0;
+}
+
+.settingsNavLink {
+  text-align: center;
+  user-select: none;
+  color: var(--primary-bg-color);
+  background-color: var(--primary-accent-color);
+  font-family: system-ui;
+  font-weight: 500;
+  display: flex;
+  padding: 20px;
+}
+
+.settingsCog {
+  height: 16px;
+  margin-right: 4px;
+  margin-top: 2px;
+  align-self: center;
+  stroke: var(--primary-bg-color);
+  stroke-width: 3;
+}
+
+.caret {
+  height: 20px;
+  margin-top: 3px;
+  align-self: center;
+  stroke: var(--primary-bg-color);
+  stroke-width: 0.5;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}

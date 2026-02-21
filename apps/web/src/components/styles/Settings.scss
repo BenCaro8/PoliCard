@@ -1,0 +1,22 @@
+.settingsOption {
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px 0 10px 10px;
+  transition: background-color 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+
+  &:first-of-type {
+    margin-top: 20px;
+  }
+
+  * {
+    margin-top: 2px;
+    margin-left: 10px;
+  }
+
+  &:hover {
+    background-color: #d4d4d4;
+  }
+}

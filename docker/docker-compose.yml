@@ -1,0 +1,33 @@
+services:      
+  graphql:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.graphql
+    image: ${ECR_REGISTRY:+${ECR_REGISTRY}/}graphql:${IMAGE_TAG:-latest}
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      LOCAL_ADDR: ${LOCAL_ADDR:-http://localhost}
+      LOCAL_PORT: ${LOCAL_PORT:-4000}
+      LOCAL_WEB_PORT: ${LOCAL_WEB_PORT:-3000}
+      GRAPHQL_ROUTE: ${GRAPHQL_ROUTE:-/graphql}
+      APPDATA_DB_URL: ${APPDATA_DB_URL}
+      APPDATA_DB_USER: ${APPDATA_DB_USER:-postgres}
+      APPDATA_DB_PASSWORD: ${APPDATA_DB_PASSWORD}
+      GEMINI_URI: ${GEMINI_URI:-http://gemini:5000}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME:-pocketnaut-tts-audio}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      ELEVENLABS_API_KEY: ${ELEVENLABS_API_KEY}
+      COGNITO_CLIENT_ID: ${COGNITO_CLIENT_ID:-3tr4j39dtjgekv0985caffr3fg}
+      COGNITO_USER_POOL_ID: ${COGNITO_USER_POOL_ID:-us-east-1_7mEFy7BEc}
+      COGNITO_CLIENT_SECRET: ${COGNITO_CLIENT_SECRET}
+    networks:
+      - app-network
+    ports: 
+      - 4000:4000
+
+networks:
+  app-network:
+    driver: bridge

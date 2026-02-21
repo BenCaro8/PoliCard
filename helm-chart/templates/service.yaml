@@ -1,0 +1,25 @@
+{{- range $serviceName, $service := .Values.services }}
+{{- if $service.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "commercialwebsite.fullname" $ }}-{{ $serviceName }}
+  labels:
+    {{- include "commercialwebsite.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $serviceName }}
+spec:
+  type: {{ $service.service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ $service.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      {{- if and (eq ($service.service.type | default "ClusterIP") "NodePort") $service.service.nodePort }}
+      nodePort: {{ $service.service.nodePort }}
+      {{- end }}
+  selector:
+    {{- include "commercialwebsite.selectorLabels" $ | nindent 4 }}
+    app.kubernetes.io/component: {{ $serviceName }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,56 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+enum ConnectionStatus {
+  CONNECTED
+  DISCONNECTED
+  CONNECTING
+}
+
+enum ServiceTarget {
+  LOCAL
+  REMOTE
+}
+
+type Environment {
+  name: String!
+  kubeContext: String!
+}
+
+type Service {
+  name: String!
+  url: String!
+  target: ServiceTarget!
+}
+
+type Config {
+  environments: [Environment!]!
+  services: [Service!]!
+}
+
+type State {
+  targetEnvironment: Environment!
+  environments: [Environment!]!
+  services: [Service!]!
+  connectionStatus: ConnectionStatus!
+}
+
+input ServiceTargetInput {
+  name: String!
+  target: ServiceTarget!
+}
+
+type Query {
+  getServices: [Service!]!
+  getState: State!
+}
+
+type Mutation {
+  setServiceTargets(services: [ServiceTargetInput!]!): [Service!]!
+  attemptReconnect: ConnectionStatus!
+}
+
+type Subscription {
+  state: State!
+}

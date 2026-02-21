@@ -1,0 +1,151 @@
+import { StyleSheet } from 'react-native';
+import {
+  PRIMARY_ACCENT_COLOR,
+  PRIMARY_FONT_COLOR,
+  PRIMARY_BG_COLOR,
+  hexToRgba,
+} from '@/src/utils/shared/common';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 100,
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'black',
+  },
+  welcomeText: {
+    color: PRIMARY_FONT_COLOR,
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  starsContainer: {
+    flex: 50,
+  },
+  profileViewContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    padding: 20,
+  },
+  profileTransparencyContainer: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: '85%',
+    height: '60%',
+    padding: 10,
+    backgroundColor: hexToRgba(PRIMARY_ACCENT_COLOR, 0.8),
+    borderRadius: 10,
+  },
+  imgContainer: {
+    width: 90,
+    height: 90,
+    borderRadius: 100,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    backgroundColor: PRIMARY_ACCENT_COLOR,
+    position: 'absolute',
+    top: -35,
+  },
+  img: {
+    width: 85,
+    height: 85,
+    tintColor: PRIMARY_FONT_COLOR,
+  },
+  rocketIcon: {
+    width: 20,
+    height: 20,
+    tintColor: PRIMARY_FONT_COLOR,
+    transform: [{ rotate: '45deg' }],
+  },
+  rocketIconContinue: {
+    tintColor: 'lightgreen',
+  },
+  statsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    height: 95,
+    justifyContent: 'space-between',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+  },
+  stat: {
+    height: '100%',
+    alignItems: 'center',
+    width: 100,
+  },
+  statLabel: {
+    color: PRIMARY_FONT_COLOR,
+    fontSize: 12,
+    height: 40,
+    width: 80,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontWeight: '200',
+  },
+  statNum: {
+    color: PRIMARY_FONT_COLOR,
+    fontSize: 20,
+    fontWeight: '400',
+    position: 'absolute',
+    bottom: 0,
+  },
+  controlBoardContainer: {
+    flex: 50,
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    padding: 20,
+  },
+  controlBoardOptionsContainer: {
+    flex: 50,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+  },
+  launchOptionText: {
+    fontWeight: 800,
+    color: PRIMARY_FONT_COLOR,
+  },
+  continueOptionText: {
+    color: 'lightgreen',
+  },
+  launchButton: {
+    backgroundColor: PRIMARY_BG_COLOR,
+    width: '85%',
+    height: 65,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    borderRadius: 20,
+    margin: 10,
+    zIndex: 1,
+    borderWidth: 2,
+    borderColor: PRIMARY_FONT_COLOR,
+  },
+  continueButton: {
+    borderColor: 'lightgreen',
+  },
+  logoutButton: {
+    backgroundColor: 'white',
+    width: '40%',
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    borderRadius: 20,
+  },
+  buttonContentContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+});
+
+export default styles;

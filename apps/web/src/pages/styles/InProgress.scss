@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&display=swap');
+
+.title {
+  display: flex;
+  background-color: var(--primary-accent-color);
+  font-size: 70px;
+  color: #f0f0f0;
+  font-family: 'Gugi';
+  margin: 0 20px;
+  user-select: none;
+  align-self: center;
+  text-wrap: balance;
+  place-content: center;
+
+  @media (max-width: 959px) {
+    display: relative;
+    font-size: 10vw;
+  }
+}

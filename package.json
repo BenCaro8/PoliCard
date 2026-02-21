@@ -1,0 +1,27 @@
+{
+  "name": "commercialwebsite",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/env",
+      "apps/graphql",
+      "apps/mobile",
+      "apps/web"
+    ]
+  },
+  "scripts": {
+    "build": "yarn workspace web build && yarn workspace graphql build",
+    "dev": "yarn workspace commercialwebsite-web dev",
+    "prepare": "husky",
+    "lint": "yarn workspace web lint && yarn workspace graphql lint"
+  },
+  "resolutions": {
+    "react@^18.3.1": "18.3.1",
+    "react@^19.1.0": "19.1.0",
+    "react-dom@^19.1.0": "19.1.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  },
+  "packageManager": "yarn@4.9.2"
+}

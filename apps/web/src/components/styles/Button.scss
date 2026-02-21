@@ -1,0 +1,39 @@
+.button {
+  border-radius: 30px;
+  padding: 10px 15px;
+  width: fit-content;
+}
+
+.right {
+  margin-left: auto;
+}
+
+.enabledButton {
+  background: linear-gradient(90deg, var(--primary-accent-color), var(--primary-gradient-color));
+  background-size: 350% 350%;
+  animation: gradient 2s ease infinite;
+
+  &:hover {
+    border-color: white;
+    border-width: 3px;
+    padding: 7px 12px;
+  }
+}
+
+.disabledButton {
+  background: gray;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

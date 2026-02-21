@@ -1,0 +1,10 @@
+.selfie {
+  margin-left: auto;
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
+
+  @media (max-width: 959px) {
+    max-width: 50%;
+  }
+}

@@ -1,0 +1,28 @@
+.inputWrapper {
+    margin: 15px 0;
+    border-radius: 30px;
+    border-color: white;
+    border-width: 3px;
+    display: flex;
+    place-items: center;
+}
+
+.input {
+    padding: 10px 15px;
+    background: none;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.svg {
+    z-index: 10;
+    fill: none;
+    stroke-width: 3;
+}
+
+.iconPadding {
+    padding-right: 10px;
+}

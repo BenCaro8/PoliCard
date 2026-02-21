@@ -1,0 +1,117 @@
+.carouselHeader {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+
+  @media (max-width: 959px) {
+    font-size: 12px;
+  }
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  gap: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box; // added to include border/outline in box
+
+  &>* {
+    position: relative;
+    z-index: 1;
+  }
+
+  &.focused {
+    box-shadow: inset 0 0 0 2px yellow; // use inset box-shadow instead
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &.hasChanges::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: repeating-linear-gradient(45deg,
+        yellow 0,
+        yellow 1px,
+        transparent 1px,
+        transparent 4px);
+    opacity: 0;
+    animation: stripesFade 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0; // place above background, below text
+  }
+
+  @media (max-width: 959px) {
+    gap: 10px;
+    width: 50%;
+  }
+}
+
+.environmentDisplay {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.environmentName {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+  text-rendering: optimizeLegibility;
+
+  @media (max-width: 959px) {
+    font-size: 14px;
+  }
+}
+
+.environmentUrl {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono',
+    'Source Code Pro', monospace;
+  word-break: break-all;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+
+  @media (max-width: 959px) {
+    font-size: 13px;
+  }
+}
+
+@keyframes stripesFade {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}

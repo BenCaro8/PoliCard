@@ -1,0 +1,207 @@
+directive @auth on FIELD | FIELD_DEFINITION
+
+directive @hasRole(role: [String]) on FIELD | FIELD_DEFINITION
+
+type Query {
+  isUserLoggedIn: User
+  getUser: User
+  getUserSessions(page: Int!, pageSize: Int!): PaginatedSessions!
+  getUserSessionNodes(sessionId: String!, page: Int!, pageSize: Int!, languageCode: String): PaginatedNodes!
+  getUserNonReplayNodes: [String!]!
+  getPopularNodes(page: Int!, pageSize: Int!, languageCode: String): PaginatedNodes
+  getNewestNodes(page: Int!, pageSize: Int!, languageCode: String): PaginatedNodes
+  getNode(nodeId: String!, languageCode: String): Node!
+  streamAudio(fileId: ID!): String!
+  getNearbyPlaces(latitude: Float!, longitude: Float!, distance: Float): NearbyPlacesResult
+  getAllInteractedNodes: [String]!
+  getImages(nodeId: String!, limit: Int, offset: Int): [NodeImage!]!
+  _empty: String
+}
+
+type PaginatedSessions {
+  sessions: [Session!]!
+  hasMore: Boolean!
+}
+
+union OverpassPlace = OverpassNode | OverpassWay
+
+type NearbyPlacesResult {
+  area: Area
+  places: [OverpassPlace]
+}
+
+type Mutation {
+  signUpUser(email: String!, displayName: String!, password: String!): Boolean
+  confirmSignUp(email: String!, password: String!, confirmationCode: String!): User
+  resendConfirmationCode(email: String!): Boolean
+  loginUser(email: String!, password: String!): User
+  logoutUser: Boolean
+  getPlaceNode(id: String!, name: String!, area: String!, languageCode: String): Node
+  markNodeInteracted(nodeId: String!): Boolean
+  enableReplayForUserNodes: Boolean
+  startSession: Session!
+  updateSessionTitle(sessionId: String!, title: String): Boolean
+  endSession(sessionId: String!): Boolean
+  addSessionNode(sessionId: String!, nodeId: String!): Boolean
+  deleteSessions(ids: [String!]!): Boolean
+  uploadImage(id: ID!, file: Upload!): String!
+  deleteImage(id: ID!): Boolean!
+  rateNodeInterest(nodeId: String!, rating: Int!): Boolean!
+  _empty: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type PaginatedNodes {
+  nodes: [Node!]!
+  hasMore: Boolean!
+}
+
+type NodeText {
+  nodeTextId: String!
+  nodeId: String!
+  languageCode: String!
+  text: String!
+  followOn: [String!]!
+}
+
+type NodeRating {
+  numRatings: Int!
+  avgRating: Float!
+  myRating: Int
+}
+
+type Node {
+  nodeId: String!
+  title: String!
+  type: String!
+  location: String
+  primaryImageUrl: String
+  text: String!
+  audioUrl: String!
+  sources: [String!]!
+  followOn: [String!]!
+  rating: NodeRating!
+  generatedAt: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type NodeImage {
+  imageId: String!
+  nodeId: String!
+  imageUrl: String!
+  uploadedBy: String
+  uploadedAt: String!
+}
+
+type NodeAudio {
+  audioId: String!
+  nodeId: String!
+  language: String!
+  audioParagraph1Url: String!
+  audioParagraph2Url: String
+  uploadedAt: String!
+}
+
+type NodeRelationship {
+  relationshipId: String!
+  nodeA: String!
+  nodeB: String!
+  relationshipType: String!
+  createdAt: String!
+}
+
+type NodeComment {
+  commentId: String!
+  nodeId: String!
+  userId: String!
+  text: String!
+  parentCommentId: String
+  createdAt: String!
+}
+
+type Vote {
+  voteId: String!
+  userId: String!
+  targetId: String!
+  targetType: String!
+  vote: Int!
+  createdAt: String!
+}
+
+type Report {
+  reportId: String!
+  userId: String!
+  targetId: String!
+  targetType: String!
+  reason: String!
+  createdAt: String!
+}
+
+type Session {
+  sessionId: String!
+  userId: String!
+  title: String
+  startTime: String!
+  endTime: String
+  createdAt: String!
+  updatedAt: String!
+  nodes: [String!]!
+}
+
+type User {
+  id: String!
+  email: String!
+  name: String!
+  metadata: UserMetadata
+}
+
+type UserMetadata {
+  explorerScore: Int!
+  numLocationsDiscovered: Int!
+}
+
+type Coordinates {
+  lat: Float!
+  lon: Float!
+}
+
+type Tags {
+  name: String
+  wikidata: String
+  wikipedia: String
+  amenity: String
+  tourism: String
+  historic: String
+  cultural: String
+  leisure: String
+  office: String
+  financial: String
+  building: String
+  border_type: String
+}
+
+type OverpassWay {
+  type: String!
+  id: ID!
+  center: Coordinates!
+  tags: Tags
+  nodes: [String!]
+  geometry: [Coordinates!]
+}
+
+type OverpassNode {
+  type: String!
+  id: ID!
+  lat: Float!
+  lon: Float!
+  tags: Tags
+}
+
+type Area {
+  type: String!
+  id: ID!
+  tags: Tags
+}

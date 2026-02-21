@@ -1,0 +1,86 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    if: false
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+
+      - name: Create ECR repositories if they don't exist
+        env:
+          AWS_REGION: ${{ env.AWS_REGION }}
+        run: |
+          # Extract service names from docker-compose.yml dynamically
+          SERVICES=$(grep -oP 'image: \$\{ECR_REGISTRY[:+]+\$\{ECR_REGISTRY\}\/\}([^:]+)' docker/docker-compose.yml | sed 's|image: \${ECR_REGISTRY[:+]+\${ECR_REGISTRY}/}||')
+
+          for SERVICE in $SERVICES; do
+            # Check if the repository exists
+            aws ecr describe-repositories --repository-names "$SERVICE" >/dev/null 2>&1 || \
+            # Create the repository if it doesn't exist
+            aws ecr create-repository --repository-name "$SERVICE"
+          done
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # Export environment variables for Docker Compose
+          export ECR_REGISTRY=$ECR_REGISTRY
+          export IMAGE_TAG=$IMAGE_TAG
+
+          cd docker
+
+          # Build and push all services defined in docker-compose.yml
+          docker compose build --parallel
+          docker compose push
+
+      - name: Install CDK dependencies and Deploy ECS stack
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          APPDATA_DB_URL: ${{ env.APPDATA_DB_URL }}
+          APPDATA_DB_PASSWORD: ${{ secrets.APPDATA_DB_PASSWORD }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          COGNITO_CLIENT_SECRET: ${{ secrets.COGNITO_CLIENT_SECRET }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          export ECR_REGISTRY=$ECR_REGISTRY
+          export IMAGE_TAG=$IMAGE_TAG
+          export GOOGLE_API_KEY=$GOOGLE_API_KEY
+          export APPDATA_DB_URL=$APPDATA_DB_URL
+          export APPDATA_DB_PASSWORD=$APPDATA_DB_PASSWORD
+          export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+          export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+          export COGNITO_CLIENT_SECRET=$COGNITO_CLIENT_SECRET
+          export ELEVENLABS_API_KEY=$ELEVENLABS_API_KEY
+
+          cd aws
+          npm install
+          npx cdk deploy --require-approval never

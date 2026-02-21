@@ -1,0 +1,164 @@
+.serviceRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 4px;
+  min-height: 38px;
+  max-height: 48px;
+  height: 100%;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+
+  &:hover {
+    border-color: green !important;
+  }
+
+  &.focused {
+    border-color: yellow !important;
+    outline: none;
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.marioIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  flex-shrink: 0;
+  justify-content: center;
+  align-self: center;
+  display: block;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--primary-font-color, #ffffff);
+    transition: fill 0.2s ease-in-out;
+  }
+}
+
+.serviceName {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: var(--primary-font-color, #ffffff);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  text-rendering: optimizeLegibility;
+}
+
+.toggleSection {
+  display: flex;
+  position: relative;
+  width: 200px;
+}
+
+.slideIndicator {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  pointer-events: none;
+
+  &.slideToRemote {
+    transform: translateX(100%);
+  }
+
+  &.slideToLocal {
+    transform: translateX(0%);
+  }
+}
+
+.toggleCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 50%;
+  height: 100%;
+  border: none;
+  position: relative;
+  z-index: 2;
+
+  &:hover:not(.active):not(.disabled) {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.localCell {
+  background: #6b7280;
+  color: #ffffff;
+
+  &.active {
+    background: repeating-linear-gradient(45deg,
+        #fbbf24,
+        #fbbf24 6px,
+        #000000 6px,
+        #000000 12px);
+    color: #000000;
+    font-weight: 700;
+    text-shadow: 1px 1px 0px #fbbf24;
+
+    .cellLabel {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #000000;
+      font-weight: 700;
+    }
+  }
+}
+
+.remoteCell {
+  background: #6b7280;
+  color: #ffffff;
+
+  &.active {
+    background: green;
+    color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(16, 185, 129, 0.3);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.cellLabel {
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+  line-height: 1.2;
+}

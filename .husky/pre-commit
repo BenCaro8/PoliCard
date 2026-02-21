@@ -1,0 +1,27 @@
+printf ">>> starting pre-commit hook\n"
+
+printf ">>> running web intl...\n"
+yarn workspace commercialwebsite-web intl
+RESULT=$? && printf "web intl exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> running web lint...\n"
+yarn workspace commercialwebsite-web lint
+RESULT=$? && printf "web lint exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> running mobile lint...\n"
+yarn workspace commercialwebsite-mobile lint
+RESULT=$? && printf "mobile lint exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> running mobile intl...\n"
+yarn workspace commercialwebsite-mobile intl
+RESULT=$? && printf "mobile intl exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> running graphql lint...\n"
+yarn workspace commercialwebsite-graphql lint
+RESULT=$? && printf "graphql lint exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> running env lint...\n"
+yarn workspace commercialwebsite-env lint
+RESULT=$? && printf "env lint exited with code $RESULT\n" || exit $RESULT
+
+printf ">>> pre-commit hook completed successfully\n"

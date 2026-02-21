@@ -1,0 +1,23 @@
+.appContainer {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: var(--primary-bg-color);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  z-index: 1000;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(155, 155, 155);
+  border-radius: 20px;
+  z-index: 1000;
+}

@@ -1,0 +1,18 @@
+.typingCursor {
+  display: inline-block;
+  width: 3px;
+  height: 60px;
+  background-color: white;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+
+  @media (max-width: 959px) {
+    height: 6.5vw;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

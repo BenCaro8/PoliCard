@@ -1,0 +1,23 @@
+FROM node:20.18.0-alpine AS builder
+
+WORKDIR /usr/src/app
+
+COPY tsconfig.base.json ../../
+COPY apps/graphql/ .
+
+RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn
+RUN yarn codegen
+RUN yarn build
+
+RUN wget https://gobinaries.com/tj/node-prune --output-document - | /bin/sh && node-prune
+
+FROM node:20.18.0-alpine
+
+COPY --from=builder /usr/src/app/dist /usr/src/app/dist
+# Generally bad, fix before deploying remotely
+COPY --from=builder /usr/src/app/.env /usr/src/app/.env
+COPY --from=builder /usr/src/app/package.json /usr/src/app/package.json
+
+WORKDIR /usr/src/app
+
+CMD ["yarn", "run-build"] 

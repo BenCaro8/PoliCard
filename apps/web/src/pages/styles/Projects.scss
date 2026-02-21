@@ -1,0 +1,14 @@
+.content {
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  margin: 30px auto;
+  text-align: center;
+  white-space: pre-wrap;
+  text-wrap: balance;
+
+  @media (max-width: 959px) {
+    font-size: 4vw;
+    margin: 20px auto;
+  }
+}

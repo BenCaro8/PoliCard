@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "baseUrl": "./src",
+    "paths": {
+      "@*": ["*"]
+    },
+    "types": ["node"],
+    "noEmit": true,
+    "allowJs": true,
+    "checkJs": true
+  },
+  "plugins": [
+    {
+      "name": "typescript-plugin-css-modules"
+    }
+  ],
+  "include": ["src", "declaration.d.ts"],
+  "exclude": ["node_modules", "build", "__generated__"]
+}

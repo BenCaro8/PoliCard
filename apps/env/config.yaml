@@ -1,0 +1,16 @@
+environments:
+  - name: Docker Desktop
+    kubeContext: docker-desktop
+
+services:
+  - name: GraphQL
+    url: commercialwebsite-graphql
+    ports:
+      - name: graphql-http
+        remote: 4000      # port in the cluster
+        native: 6001      # your local dev server
+        mapped: 4000      # unified localhost port your proxy binds to
+      - name: graphql-subscriptions
+        remote: 4001
+        native: 6002
+        mapped: 4001

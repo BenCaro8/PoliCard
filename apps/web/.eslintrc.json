@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "../../.eslintrc.base.json",
+    "plugin:react/recommended",
+    "plugin:storybook/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier", "formatjs"],
+  "rules": {
+    "formatjs/no-offset": "error",
+    "formatjs/enforce-id": "error",
+    "formatjs/no-multiple-whitespaces": "error",
+    "formatjs/prefer-formatted-message": "error",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}

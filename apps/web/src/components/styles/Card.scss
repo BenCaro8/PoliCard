@@ -1,0 +1,86 @@
+.cardWrapper {
+  border: solid;
+  padding: 30px;
+  display: flex;
+}
+
+.cardWithPic {
+  height: 400px;
+  width: 600px;
+
+  @media (max-width: 959px) {
+    height: 250px;
+    max-width: 300px;
+    min-width: 200px;
+  }
+}
+
+.cardWithoutPic {
+  width: 70%;
+  min-width: 800px;
+  margin: 10px 10px;
+
+  @media (max-width: 959px) {
+    width: 100%;
+    margin: 10px 0px;
+    min-width: 0;
+  }
+}
+
+.noLink {
+  cursor: unset;
+}
+
+.center {
+  margin: 0 auto;
+
+  * {
+    margin: 0 auto;
+  }
+}
+
+.pic {
+  max-height: 300px;
+  max-width: 600px;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 10;
+  aspect-ratio: auto;
+
+  @media (max-width: 959px) {
+    max-width: 40%;
+    height: auto;
+    width: auto;
+  }
+}
+
+.content {
+  align-content: center;
+  font-size: large;
+  width: 100%;
+
+  p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    width: fit-content;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 959px) {
+    font-size: small;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.divisionBar {
+  width: 100%;
+  height: 3px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
