@@ -2,7 +2,7 @@ import { ApolloServer } from '@apollo/server';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { expressMiddleware } from '@apollo/server/express4';
 import { tokenMiddleware } from './utils/middleware';
-import { dbConnectionReady } from './utils/aws';
+import { dbConnectionReady } from './utils/db';
 import axios from 'axios';
 import express from 'express';
 import bodyParser from 'body-parser';

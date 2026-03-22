@@ -4,6 +4,7 @@ import { z } from 'zod';
 import 'dotenv/config';
 
 let _client: OpenAI | null = null;
+
 const getClient = () => {
   if (!_client) _client = new OpenAI({ apiKey: process.env.OPENAI_SECRET_KEY });
   return _client;
@@ -15,17 +16,17 @@ type SearchAndExtractInput<T> = {
   schema: z.ZodSchema<T>;
 };
 
-export async function searchAndExtract<T>({
+export const searchAndExtract = async <T>({
   entityName,
   searchPrompt,
   schema,
-}: SearchAndExtractInput<T>): Promise<T> {
+}: SearchAndExtractInput<T>): Promise<T> => {
   const client = getClient();
 
   // Step 1: Use OpenAI web search to gather current information
   const searchResponse = await client.responses.create({
     model: 'gpt-4o',
-    tools: [{ type: 'web_search_preview' }],
+    tools: [{ type: 'web_search' }],
     input: searchPrompt,
   });
 
@@ -61,4 +62,4 @@ export async function searchAndExtract<T>({
   if (!content) throw new Error('Empty response from LLM');
 
   return schema.parse(JSON.parse(content));
-}
+};

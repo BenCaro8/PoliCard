@@ -4,6 +4,10 @@ import {
   PoliticianNewsItemType,
 } from './politician/politicianType';
 
-export const typeDefs = [PoliticianType, PoliticianVoteType, PoliticianNewsItemType];
+export const typeDefs = [
+  PoliticianType,
+  PoliticianVoteType,
+  PoliticianNewsItemType,
+];
 
 export const typeResolvers = {};

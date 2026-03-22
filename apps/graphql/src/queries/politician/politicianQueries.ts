@@ -1,3 +1,5 @@
+import { dbPool } from '../../utils/db';
+
 const getPoliticianTypeDef = `#graphql
   extend type Query {
     getPolitician(id: ID!): Politician
@@ -8,9 +10,18 @@ export const getPoliticianResolver = async (
   _: unknown,
   { id }: { id: string },
 ) => {
-  // TODO: query from DB once politicians table is set up
-  console.log(`[getPolitician] id=${id}`);
-  return null;
+  const politician = await dbPool.oneOrNone(
+    'SELECT * FROM politicians WHERE id = $1',
+    [id],
+  );
+  if (!politician) return null;
+
+  const [recentVotes, recentNews] = await Promise.all([
+    dbPool.any('SELECT * FROM politician_votes WHERE politician_id = $1', [id]),
+    dbPool.any('SELECT * FROM politician_news WHERE politician_id = $1', [id]),
+  ]);
+
+  return { ...politician, recentVotes, recentNews };
 };
 
 export const typeDefs = [getPoliticianTypeDef];

@@ -5,7 +5,8 @@
       "Bash(cp:*)",
       "Bash(rsync:*)",
       "Bash(tail:*)",
-      "Bash(yarn generate-schema:*)"
+      "Bash(yarn generate-schema:*)",
+      "Bash(docker run:*)"
     ]
   }
 }

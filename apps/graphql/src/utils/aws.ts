@@ -1,8 +1,6 @@
 import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
 import { Readable } from 'stream';
-import camelcaseKeys from 'camelcase-keys';
-import pgPromise from 'pg-promise';
 
 import 'dotenv/config';
 
@@ -13,35 +11,6 @@ export const s3Client = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
   },
 });
-
-const pgp = pgPromise({
-  receive(e) {
-    // @ts-expect-error rows unexpected for some reason...
-    e.result.rows = camelcaseKeys(e.data, { deep: true });
-  },
-});
-
-export const dbPool = pgp({
-  host: process.env.APPDATA_DB_URL,
-  user: process.env.APPDATA_DB_USER,
-  password: process.env.APPDATA_DB_PASSWORD,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-export let dbConnectionReady = false;
-
-dbPool
-  .connect()
-  .then((obj) => {
-    console.log('Database connection successful');
-    dbConnectionReady = true;
-    obj.done(); // Release the connection back to the pool
-  })
-  .catch((error) => {
-    console.error('ERROR:', error.message || error);
-  });
 
 export const uploadToS3 = async (audioStream: Readable, fileName: string) => {
   const upload = new Upload({
@@ -60,7 +29,7 @@ export const uploadToS3 = async (audioStream: Readable, fileName: string) => {
   });
 
   await upload.done();
-  console.log(`Audio uploaded successfully to S3: ${fileName}`);
+  console.log(`Uploaded to S3: ${fileName}`);
 };
 
 export const deleteFromS3 = async (fileName: string) => {
@@ -71,9 +40,9 @@ export const deleteFromS3 = async (fileName: string) => {
         Key: fileName,
       }),
     );
-    console.log('Success. Object deleted.', data);
+    console.log('Deleted from S3:', data);
     return data;
   } catch (err) {
-    console.log('Error', err);
+    console.log('S3 delete error:', err);
   }
 };
