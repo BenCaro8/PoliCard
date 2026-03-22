@@ -17,7 +17,6 @@ import {
   typeDefs as mutationTypeDefs,
   resolvers as mutationResolvers,
 } from './mutations/mutations';
-import graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.mjs';
 import {
   typeDefs as typeTypeDefs,
   typeResolvers as typeTypeResolvers,
@@ -57,7 +56,6 @@ await server.start();
 app.use(
   GRAPHQL,
   bodyParser.json(),
-  graphqlUploadExpress(),
   express.json(),
   (req: Request, res: Response, next: NextFunction) =>
     tokenMiddleware(req, res, next),

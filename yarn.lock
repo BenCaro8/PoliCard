@@ -14035,6 +14035,7 @@ __metadata:
     graphql-upload: "npm:^17.0.0"
     jsonwebtoken: "npm:^9.0.2"
     jwks-rsa: "npm:^3.1.0"
+    openai: "npm:^6.32.0"
     pg: "npm:^8.16.3"
     pg-promise: "npm:^11.15.0"
     pg-query-stream: "npm:^4.10.3"
@@ -14044,6 +14045,7 @@ __metadata:
     typescript: "npm:^5.8.3"
     webpack: "npm:^5.97.1"
     webpack-cli: "npm:^6.0.1"
+    zod: "npm:^4.3.6"
   languageName: unknown
   linkType: soft
 
@@ -22920,6 +22922,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"openai@npm:^6.32.0":
+  version: 6.32.0
+  resolution: "openai@npm:6.32.0"
+  peerDependencies:
+    ws: ^8.18.0
+    zod: ^3.25 || ^4.0
+  peerDependenciesMeta:
+    ws:
+      optional: true
+    zod:
+      optional: true
+  bin:
+    openai: bin/cli
+  checksum: 10c0/783f2f5fb4ec26d0629f4b4b3854dcd4c6c686ea50f81bd352ccdd6b70aa933aee10bab631dfa3b886ff34dbeaa9ec0fa700ba195161dff32058a5f565003c8e
+  languageName: node
+  linkType: hard
+
 "opener@npm:^1.5.2":
   version: 1.5.2
   resolution: "opener@npm:1.5.2"
@@ -29697,5 +29716,12 @@ __metadata:
   version: 0.8.15
   resolution: "zen-observable@npm:0.8.15"
   checksum: 10c0/71cc2f2bbb537300c3f569e25693d37b3bc91f225cefce251a71c30bc6bb3e7f8e9420ca0eb57f2ac9e492b085b8dfa075fd1e8195c40b83c951dd59c6e4fbf8
+  languageName: node
+  linkType: hard
+
+"zod@npm:^4.3.6":
+  version: 4.3.6
+  resolution: "zod@npm:4.3.6"
+  checksum: 10c0/860d25a81ab41d33aa25f8d0d07b091a04acb426e605f396227a796e9e800c44723ed96d0f53a512b57be3d1520f45bf69c0cb3b378a232a00787a2609625307
   languageName: node
   linkType: hard

@@ -1,75 +1,23 @@
 import { mergeTypeDefs, mergeResolvers } from '@graphql-tools/merge';
 import {
-  typeDefs as userQueryTypeDefs,
-  isUserLoggedInResolver,
-  getUserResolver,
-} from './user/userQueries';
-import {
-  typeDefs as nodeQueryTypeDefs,
-  getPopularNodesResolver,
-  getNewestNodesResolver,
-  getNodeResolver,
-} from './nodes/nodeQueries';
-import {
-  typeDefs as sessionQueryTypeDefs,
-  getUserSessionsResolver,
-  getUserNonReplayNodesResolver,
-  getUserSessionNodesResolver,
-} from './session/sessionQueries';
-import {
-  typeDefs as audioTypeDefs,
-  streamAudioResolver,
-} from './media/audioQueries';
-import {
-  typeDefs as getNearbyPlacesTypeDefs,
-  getNearbyPlacesResolver,
-  overpassPlaceResolver,
-} from './places/overpass';
-import {
-  typeDefs as interactionTypeDefs,
-  getAllInteractedNodesResolver,
-} from './interactions/interactionQueries';
-import {
-  typeDefs as imageTypeDefs,
-  getImagesResolver,
-} from './media/imageQueries';
+  typeDefs as politicianQueryTypeDefs,
+  getPoliticianResolver,
+} from './politician/politicianQueries';
 
 const baseQueryTypeDef = `#graphql
-  type Query { 
+  type Query {
     _empty: String
   }
 `;
 
 const baseQueryResolver = {
-  ...overpassPlaceResolver,
-
   Query: {
-    isUserLoggedIn: isUserLoggedInResolver,
-    getUser: getUserResolver,
-    streamAudio: streamAudioResolver,
-    getNearbyPlaces: getNearbyPlacesResolver,
-    getAllInteractedNodes: getAllInteractedNodesResolver,
-    getUserSessions: getUserSessionsResolver,
-    getUserSessionNodes: getUserSessionNodesResolver,
-    getPopularNodes: getPopularNodesResolver,
-    getNewestNodes: getNewestNodesResolver,
-    getNode: getNodeResolver,
-    getUserNonReplayNodes: getUserNonReplayNodesResolver,
-    getImages: getImagesResolver,
+    getPolitician: getPoliticianResolver,
   },
 };
 
-const typeDefsArray = [
-  ...userQueryTypeDefs,
-  ...sessionQueryTypeDefs,
-  ...nodeQueryTypeDefs,
-  ...audioTypeDefs,
-  ...getNearbyPlacesTypeDefs,
-  ...interactionTypeDefs,
-  ...imageTypeDefs,
+export const typeDefs = mergeTypeDefs([
+  ...politicianQueryTypeDefs,
   baseQueryTypeDef,
-];
-const resolversArray = [baseQueryResolver];
-
-export const typeDefs = mergeTypeDefs(typeDefsArray);
-export const resolvers = mergeResolvers(resolversArray);
+]);
+export const resolvers = mergeResolvers([baseQueryResolver]);
