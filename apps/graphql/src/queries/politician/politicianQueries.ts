@@ -1,4 +1,4 @@
-import { dbPool } from '../../utils/db';
+import { prisma } from '../../utils/prisma';
 
 const getPoliticianTypeDef = `#graphql
   extend type Query {
@@ -10,18 +10,17 @@ export const getPoliticianResolver = async (
   _: unknown,
   { id }: { id: string },
 ) => {
-  const politician = await dbPool.oneOrNone(
-    'SELECT * FROM politicians WHERE id = $1',
-    [id],
-  );
+  const politician = await prisma.politician.findUnique({
+    where: { id },
+    include: { votes: true, news: true },
+  });
   if (!politician) return null;
 
-  const [recentVotes, recentNews] = await Promise.all([
-    dbPool.any('SELECT * FROM politician_votes WHERE politician_id = $1', [id]),
-    dbPool.any('SELECT * FROM politician_news WHERE politician_id = $1', [id]),
-  ]);
-
-  return { ...politician, recentVotes, recentNews };
+  return {
+    ...politician,
+    recentVotes: politician.votes,
+    recentNews: politician.news,
+  };
 };
 
 export const typeDefs = [getPoliticianTypeDef];

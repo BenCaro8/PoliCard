@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Politician {
+  id             String           @id
+  name           String
+  summary        String
+  ideologyScore  Float?           @map("ideology_score")
+  ideologySource String?          @map("ideology_source")
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @map("updated_at")
+  votes          PoliticianVote[]
+  news           PoliticianNews[]
+
+  @@map("politicians")
+}
+
+model PoliticianVote {
+  voteId       String       @id @default(uuid()) @map("vote_id")
+  politicianId String       @map("politician_id")
+  politician   Politician   @relation(fields: [politicianId], references: [id], onDelete: Cascade)
+  bill         String
+  date         String
+  position     VotePosition
+  summary      String
+
+  @@map("politician_votes")
+}
+
+model PoliticianNews {
+  newsId       String     @id @default(uuid()) @map("news_id")
+  politicianId String     @map("politician_id")
+  politician   Politician @relation(fields: [politicianId], references: [id], onDelete: Cascade)
+  title        String
+  source       String
+  url          String
+  publishedAt  String     @map("published_at")
+  summary      String
+
+  @@map("politician_news")
+}
+
+enum VotePosition {
+  Yea
+  Nay
+  Absent
+}
