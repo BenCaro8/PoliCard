@@ -28,7 +28,7 @@
     "@graphql-tools/schema": "^10.0.9",
     "@graphql-tools/utils": "^10.6.0",
     "@prisma/adapter-pg": "^7.5.0",
-    "@prisma/client": "^7.5.0",
+    "@prisma/client": "^7.6.0",
     "aws-jwt-verify": "^5.0.0",
     "axios": "^1.7.9",
     "body-parser": "^1.20.3",
@@ -50,6 +50,7 @@
     "pg-promise": "^11.15.0",
     "pg-query-stream": "^4.10.3",
     "prettier": "^3.6.2",
+    "prisma-zod-generator": "^2.1.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {

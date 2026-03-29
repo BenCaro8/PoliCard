@@ -1,28 +1,28 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
-export const PoliticianSchema = z.object({
-  name: z.string(),
-  summary: z.string(),
-  ideologyScore: z.number().nullable(),
-  ideologySource: z.string().nullable(),
-  recentVotes: z.array(
-    z.object({
-      bill: z.string(),
-      date: z.string(),
-      position: z.enum(['Yea', 'Nay', 'Absent']),
-      summary: z.string(),
-    }),
-  ),
-  recentNews: z.array(
-    z.object({
-      title: z.string(),
-      source: z.string(),
-      url: z.string(),
-      publishedAt: z.string(),
-      summary: z.string(),
-    }),
-  ),
-});
+import { PoliticianCreateWithoutVotesInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianCreateWithoutVotesInput.schema';
+import { PoliticianNewsCreateWithoutPoliticianInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianNewsCreateWithoutPoliticianInput.schema';
+import { PoliticianVoteCreateWithoutPoliticianInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianVoteCreateWithoutPoliticianInput.schema';
+
+const VoteSchema =
+  PoliticianVoteCreateWithoutPoliticianInputObjectZodSchema.omit({
+    voteId: true,
+  });
+const NewsSchema =
+  PoliticianNewsCreateWithoutPoliticianInputObjectZodSchema.omit({
+    newsId: true,
+  });
+
+export const PoliticianSchema =
+  PoliticianCreateWithoutVotesInputObjectZodSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+    news: true,
+  }).extend({
+    recentVotes: z.array(VoteSchema),
+    recentNews: z.array(NewsSchema),
+  });
 
 /** LLM-extracted fields only — no DB-managed fields */
 export type PoliticianExtracted = z.infer<typeof PoliticianSchema>;
