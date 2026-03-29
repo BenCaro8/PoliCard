@@ -16,7 +16,8 @@
   },
   "imports": {
     "#gql-types": "./src/types/__generated__/types.ts",
-    "#gql-context": "./src/types/context.ts"
+    "#gql-context": "./src/types/context.ts",
+    "#zod-types": "./src/types/__generated__/zod/schemas/index.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.11.2",

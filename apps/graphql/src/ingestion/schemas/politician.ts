@@ -1,8 +1,9 @@
 import * as z from 'zod';
-
-import { PoliticianCreateWithoutVotesInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianCreateWithoutVotesInput.schema';
-import { PoliticianNewsCreateWithoutPoliticianInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianNewsCreateWithoutPoliticianInput.schema';
-import { PoliticianVoteCreateWithoutPoliticianInputObjectZodSchema } from '../../../__generated__/schemas/objects/PoliticianVoteCreateWithoutPoliticianInput.schema';
+import {
+  PoliticianCreateWithoutVotesInputObjectZodSchema,
+  PoliticianNewsCreateWithoutPoliticianInputObjectZodSchema,
+  PoliticianVoteCreateWithoutPoliticianInputObjectZodSchema,
+} from '#zod-types';
 
 const VoteSchema =
   PoliticianVoteCreateWithoutPoliticianInputObjectZodSchema.omit({

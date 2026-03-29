@@ -1,5 +1,6 @@
 {
   "mode": "full",
+  "output": "./src/types/__generated__/zod",
   "pureModels": true,
   "variants": {
     "pure": {
